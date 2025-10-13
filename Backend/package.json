@@ -1,0 +1,17 @@
+{
+  "name": "matematch-backend",
+  "version": "1.0.0",
+  "description": "\"This is the Backend project of MateMatch project\"",
+  "license": "ISC",
+  "author": "\"Ophid\"",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express.js": "^1.0.0",
+    "mongoose": "^8.19.1"
+  }
+}
