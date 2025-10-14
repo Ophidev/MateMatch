@@ -43,3 +43,36 @@ b# Day 1
 - Created GET/profile/view api
 - getting the user from req.user attached by userAuth middleware
 - then sending it as a response.
+
+
+# Day 2 part 3
+- created PATCH/profile/edit api
+- first created validateEditProfileData(req) in validation.js < utils
+    - getting the loggedInUser = req.User set by the userAuth
+    - created - :
+
+      ```js
+      const allowedFields = [
+        "firstName",
+        "lastName",
+        "age",
+        "gender",
+        "budget",
+        "location",
+        "lifestyle",
+        "photoUrl",
+        "about"
+       ];
+
+       ```
+    - then check isEditAllowed by the logic of Object.keys()
+    - and returning isEditAllowed variable<br></br>
+- created PATCH/profile/edit api
+    - first check validateEditProfileData(req) if not throw Error
+    - get loggedInUser = req.user set by the userAuth middleware
+    - Updating the loggedInUser -:
+
+       ```js
+        Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
+        ```
+    - sending loggedInUser as a response.
