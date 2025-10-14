@@ -29,5 +29,17 @@ b# Day 1
 - send user as in the response.<br></br>
 - Now Start creation of POST/logout api
 - just using res.cookie() sending null as token
-- and expires the cokkie now expires : new Date(Date.now()).
-
+- and expires the cokkie now expires : new Date(Date.now()).<br></br>
+- Created ProfileRouter
+- Created GET/profile/view api
+- Created userAuth middleware in auth.js in middlewares folder
+- userAuth() > getting Token from req.cookies 
+- if(!Token) sending Error
+- jwt.verify(Token,secretKey,{expiresIn:"1d"}) verifying Token
+- using Model.findById(_id) and getting user
+- if not user then throw Error
+- then attached req.user = user 
+- and at the last calling next() method.<br></br>
+- Created GET/profile/view api
+- getting the user from req.user attached by userAuth middleware
+- then sending it as a response.

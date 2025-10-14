@@ -10,8 +10,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 const authRouter = require("./routes/AuthRouter");
+const profileRouter = require("./routes/profileRouter");
 
 app.use("/",authRouter);
+app.use("/",profileRouter);
 
 connectDB()
 .then (() => {
