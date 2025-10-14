@@ -1,4 +1,4 @@
-# Day 1
+b# Day 1
 - HLD & LLD Design
 - Folder Strcuture of Backend
 - creating a database.js file to connect with MongoDB
@@ -26,8 +26,7 @@
 - validatePassword()>using of bcrypt.compare(userInputPassword,password)
 - if isPasswordValid then schema.methods.getJWT() called
 - res.cookie() sends cookie
-- send user as in the response.
-
+- send user as in the response.<br></br>
 - Now Start creation of POST/logout api
 - just using res.cookie() sending null as token
 - and expires the cokkie now expires : new Date(Date.now()).
