@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -117,6 +118,15 @@ userSchema.methods.getJWT = async function () {
   }catch(err){
     throw new Error("Error in generating Token");
   }
+};
+
+userSchema.methods.validatePassword = async function (userInputPassword) {
+    const user = this;
+    const passwordHash = user.password;
+
+    const isPasswordValid = await bcrypt.compare(userInputPassword,passwordHash);
+
+    return isPasswordValid;
 };
 
 const UserModel = mongoose.model("User",userSchema);
