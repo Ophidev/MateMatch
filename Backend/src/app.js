@@ -1,15 +1,17 @@
 const express = require("express");
 const connectDB = require("./config/database");
+const cookieParser = require("cookie-parser");
+
 require("dotenv").config();
 
 const app = express();
 
+app.use(express.json());
+app.use(cookieParser());
 
+const authRouter = require("./routes/AuthRouter");
 
-app.use("/",(req,res) => {
-
-    res.send("Namaste MateMatch🙏");
-});
+app.use("/",authRouter);
 
 connectDB()
 .then (() => {

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -105,6 +106,18 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.methods.getJWT = async function () {
+  try {
+  const user = this;
+
+  const Token = await jwt.sign({_id : user?._id},process.env.JWT_SEKRET)
+
+  return Token;
+  }catch(err){
+    throw new Error("Error in generating Token");
+  }
+};
 
 const UserModel = mongoose.model("User",userSchema);
 
