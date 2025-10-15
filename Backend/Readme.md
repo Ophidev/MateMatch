@@ -80,14 +80,40 @@ b# Day 1
 
 # Day3 Part 1
 - Created PATCH/profile/password api
-- This api is used to update the password of a user
-- get the loggedInUser = req.user set by userAuth middleware
-- get passwordHash = loggedInUser.password
-- get oldPassword & newPassword = req.body
-- using bcrypt.compare(oldPassword,passwordHash)
-- if not password valid then throw new Error else
-- generate new passwordHash using bcrypt.hash(newPassword,10)
-- update the loggedInUser.password = newpasswordHash
-- and loggedInUser.save() to database.
+    - This api is used to update the password of a user
+    - get the loggedInUser = req.user set by userAuth middleware
+    - get passwordHash = loggedInUser.password
+    - get oldPassword & newPassword = req.body
+    - using bcrypt.compare(oldPassword,passwordHash)
+    - if not password valid then throw new Error else
+    - generate new passwordHash using bcrypt.hash(newPassword,10)
+    - update the loggedInUser.password = newpasswordHash
+    - and loggedInUser.save() to database.
 
 # Day3 Part 2
+ - Created requestRouter.js file which contain requestRouter
+ - Created POST/request/send/:status/:toUserId api
+    - getting loggedInUser = req.user set by the userAuth middleware
+    - getting fromUserId = loggedInUser._id, toUserId = req.params.toUserId
+    - getting status = req.params.status
+    - then write logic for allowedStatus
+    - if !allowedStatus.includes(status) then res.status(404).send(ERROR)
+    - else toUser = UserModel.findById(toUserId) find toUserId in DB
+    - if !toUser res.status(404).send(ERROR)
+    - else -:
+
+        ```js
+
+        const existingConnectionRequest =
+            await ConnectionRequestModel.findOne({
+              $or: [
+                { fromUserId, toUserId },
+                { fromUserId: toUserId, toUserId: fromUserId },
+              ],
+            });
+            
+        ```
+    - if existingconnectionRequest then res.status(404).send(ERROR)
+    - else create Schema.pre("save",(next)) method in connectionRequst.js
+    - which will check weather the user is not sending request to itself
+    - then save data to DB 
