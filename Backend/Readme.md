@@ -76,3 +76,18 @@ b# Day 1
         Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
         ```
     - sending loggedInUser as a response.
+
+
+# Day3 Part 1
+- Created PATCH/profile/password api
+- This api is used to update the password of a user
+- get the loggedInUser = req.user set by userAuth middleware
+- get passwordHash = loggedInUser.password
+- get oldPassword & newPassword = req.body
+- using bcrypt.compare(oldPassword,passwordHash)
+- if not password valid then throw new Error else
+- generate new passwordHash using bcrypt.hash(newPassword,10)
+- update the loggedInUser.password = newpasswordHash
+- and loggedInUser.save() to database.
+
+# Day3 Part 2
