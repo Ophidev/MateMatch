@@ -6,66 +6,52 @@ const UserModel = require("../models/user");
 const requestRouter = express.Router();
 
 requestRouter.post(
-  "/request/send/:status/:toUserId",
+  "/request/review/:status/:requestId",
   userAuth,
   async (req, res) => {
     try {
-      const fromUserId = req.user._id;
-      const toUserId = req.params.toUserId;
-      const status = req.params.status;
+      //Aditya sends request to => Ayush
+      //logedInUser = toUserId
+      //status = interested
+      //req Id should be valid
 
-      const allowedStatus = ["interested", "ignored"];
+      const loggedInUser = req.user;
+      const { status, requestId } = req.params;
+
+      //in req.params allowed status should be [accepted || rejected]
+
+      const allowedStatus = ["accepted", "rejected"];
 
       if (!allowedStatus.includes(status)) {
-        res.status(404).json({ message: "Invalid status type" });
-      } else {
-        //finding toUserId is in DB or not
-        const toUser = await UserModel.findById(toUserId);
-
-        if (!toUser) {
-          res.status(404).json({ message: "!Invalid Request User not found" });
-        } else {
-          //checking weather the request already exists or not
-
-          const existingConnectionRequest =
-            await ConnectionRequestModel.findOne({
-              $or: [
-                { fromUserId, toUserId },
-                { fromUserId: toUserId, toUserId: fromUserId },
-              ],
-            });
-
-          if (existingConnectionRequest) {
-            res.status(404).send("Connection Request already Exists!!");
-          } else {
-            //Now before saving let also write logic for one more corner case ie. -:
-            //IF a person sending connection request to itself
-            //for that we will use the pre middleware or method given my the mongoose
-            //which help us to write logic in it before the saving data in the database
-            //for that go to the connectionRequest.js file where the connectionRequest Schema is created.
-
-            const connectionRequestInstance = new ConnectionRequestModel({
-              fromUserId,
-              toUserId,
-              status,
-            });
-
-            const data = await connectionRequestInstance.save();
-
-            res.json({
-              message:
-                req.user.firstName +
-                " send " +
-                status +
-                " status to : " +
-                toUser.firstName,
-              data: data,
-            });
-          }
-        }
+        return res.status(400).send("!invalid status");
       }
-    } catch (err) {
-      res.status(400).send("❌ERROR : " + err.message);
+     
+      const connectionRequest = await ConnectionRequestModel.findOne({
+
+        _id : requestId,
+        toUserId : loggedInUser._id,
+        status : "interested",
+
+      });
+
+      if(!connectionRequest){
+
+        return res
+                .status(400)
+                .json({ message: "Connection request not found" });
+      }
+
+       connectionRequest.status = status;
+
+       const data = await connectionRequest.save();
+
+       res.json({
+         message: "connection Request " + status,
+       });
+
+
+    } catch (error) {
+      res.status(401).send("ERROR : " + error.message);
     }
   }
 );
