@@ -1,10 +1,10 @@
 
-function App() {
 
+function App() {
 
   return (
     <>
-     <h1 className="text-3xl">Namaste MateMatch-Frontend</h1>
+     <h1 className="bg-blush">Namaste MateMatch</h1>
     </>
   )
 }
