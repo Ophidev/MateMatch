@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <div>
-      <div className="navbar shadow-sm p-5">
+      <div className="navbar bg-neutral text-neutral-content shadow-sm p-5">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">MateMatch</a>
         </div>
@@ -23,7 +23,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-primary text-neutral-content rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
                 <a className="justify-between">
