@@ -10,3 +10,9 @@
 - Footer
 - Login / Sign-up -> UI part
 - Home page
+
+# Day 3
+- redux installed
+- axios installed
+- Login/Sign-up form logic
+- appStore + userSlice created

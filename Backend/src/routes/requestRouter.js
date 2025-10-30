@@ -6,6 +6,66 @@ const UserModel = require("../models/user");
 const requestRouter = express.Router();
 
 requestRouter.post(
+  "/request/send/:status/:userId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const fromUserId = req.user._id;
+      const toUserId = req.params.userId;
+      const status = req.params.status;
+
+      //in this api only 2 status are allowed i.e "ignored" & "interested"
+
+      const allowedStatus = ["ignored","interested"];
+
+      if (!allowedStatus.includes(status)) {
+        return res.status(404).json({ message: "Invalid Status!!!" });
+      }
+
+      //let's check that toUserId present in DB or not?
+      
+      const toUser = await UserModel.findById(toUserId);
+
+      if (!toUser) {
+        return res.status(404).send("Invalid User!!");
+      }
+
+      // basically checking weather the connection request exist or not
+
+      const existingConnectionRequest = await ConnectionRequestModel.findOne({
+        $or: [
+          { fromUserId, toUserId },
+          { fromUserId: toUserId, toUserId: fromUserId },
+        ],
+      });
+
+      if (existingConnectionRequest) {
+        return res.status(404).send("Connection Request already Exists!!");
+      }
+      const connectionRequestInstance = new ConnectionRequestModel({
+        fromUserId,
+        toUserId,
+        status,
+      });
+
+      const data = await connectionRequestInstance.save();
+
+      res.json({
+        message:
+          req.user.firstName +
+          " send " +
+          status +
+          " status to : " +
+          toUser.firstName,
+        data: data,
+      });
+    } catch (err) {
+      res.status(400).send("ERROR : " + err.message);
+    }
+  }
+);
+
+requestRouter.post(
   "/request/review/:status/:requestId",
   userAuth,
   async (req, res) => {

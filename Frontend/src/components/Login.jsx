@@ -1,22 +1,65 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hero from "../images/hero.png";
+import { BASE_URL } from "../utils/constants";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/redux/userSlice";
 
 const Login = () => {
-  const [loginForm, setLoginForm] = useState(true);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [loginForm, setLoginForm] = useState(true);
   const [firstName,setFirstName] = useState("");
   const [lastName,setLastName] = useState("");
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [emailId,setEmailId] = useState("Ayush@gmail.com");
+  const [password,setPassword] = useState("Ayush@123");
+  const [error,setError] = useState("");
 
 
   async function handleLogin () {
-    
+      try{
+        setError("");
+        const res = await axios.post(
+          BASE_URL+"/login",
+          {
+            emailId,
+            password
+          },
+          { withCredentials:true }
+        );
+
+        dispatch(addUser(res?.data?.data));
+        navigate("/feed");
+      }
+      catch(err){
+        setError(err?.response.data || "Something Went rong!!");
+      }
   }
 
   async function handleSignUp () {
-
+    try{
+      setError(""); 
+      const res = await axios.post(
+        BASE_URL+"/signup",
+        {
+          firstName,
+          lastName,
+          emailId,
+          password
+        },
+        {withCredentials:true},
+      );
+    
+      dispatch(addUser(res?.data?.data));
+      
+      navigate("/profile");
+    }
+    catch(err){
+      setError(err?.response.data || "Something Went rong!!");
+    }
   }
 
   return (
@@ -89,13 +132,13 @@ const Login = () => {
             </>
           )}
 
-          <label className="label font-medium text-gray-700">Email</label>
+          <label className="label font-medium text-gray-700">EmailId</label>
           <input
-            type="email"
+            type="emailId"
             className="input input-bordered"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your emailId"
+            value={emailId}
+            onChange={(e) => setEmailId(e.target.value)}
           />
 
           <label className="label font-medium text-gray-700">Password</label>
@@ -107,6 +150,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
+          <p className="mt-2 p-1 text-[14px] text-red-600">
+            {error}
+          </p>
           <button
             className="btn mt-6 bg-[#c53d0e] border-none text-white hover:bg-[#b8360b] w-full text-lg font-semibold"
             onClick={loginForm ? handleLogin : handleSignUp}
