@@ -17,7 +17,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
       
-const authRouter = require("./routes/AuthRouter.js");
+const authRouter = require("./routes/authRouter.js");
 const profileRouter = require("./routes/profileRouter");
 const requestRouter = require("./routes/requestRouter");
 const userRouter = require("./routes/userRouter");
