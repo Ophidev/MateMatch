@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin:"http://localhost:5173",
+    origin:process.env.FRONTEND_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -17,10 +17,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
       
-const authRouter = require("./routes/AuthRouter");
-const profileRouter = require("./routes/profileRouter");
-const requestRouter = require("./routes/requestRouter");
-const userRouter =  require("./routes/userRouter");
+const authRouter = require("./routes/AuthRouter.js");
+const profileRouter = require("./routes/profileRouter.js");
+const requestRouter = require("./routes/requestRouter.js");
+const userRouter =  require("./routes/userRouter.js");
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
@@ -31,8 +31,8 @@ connectDB()
   .then(() => {
     console.log("✅Connected to DB");
 
-    app.listen(7777, () => {
-      console.log("✅ Server Started at : 7777");
+    app.listen(process.env.PORT || 7777, () => {
+      console.log("✅ Server Started ");
     });
   })
   .catch((err) => {
