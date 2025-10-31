@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import appStore from "../utils/redux/appStore";
 import { addConnections } from "../utils/redux/connectionsSlice";
-import UserCard from "./UserCard";
+import ChatCard from "./ChatCard";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -46,10 +45,8 @@ const Connections = () => {
   return (
     <div className="flex flex-col gap-5 p-2 items-center justify-center">
       {connections?.map((connection) => (
-        <UserCard
+        <ChatCard
           key={connection?._id}
-          status1="accept"
-          status2="reject"
           user={connection}
           connectionId={connection?._id}
         />

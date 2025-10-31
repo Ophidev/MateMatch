@@ -9,6 +9,7 @@ import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import PendingRequests from "./components/PendingRequests";
 import About from "./components/About";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -20,18 +21,18 @@ function App() {
   );
 }
 
-// 👇 Separate component so we can use useSelector inside
+//Separate component so we can use useSelector inside
 function MainRoutes() {
   const user = useSelector((state) => state.user); // adjust to your slice path
 
   return (
     <Routes>
       <Route path="/" element={<Body />}>
-        {/* 🏠 Public routes */}
+        {/* Public routes */}
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
 
-        {/* 🔒 Protected routes (only if user exists) */}
+        {/* Protected routes (only if user exists) */}
         {user && (
           <>
             <Route path="profile" element={<Profile />} />
@@ -39,10 +40,11 @@ function MainRoutes() {
             <Route path="/received" element={<PendingRequests />} />
             <Route path="/connections" element={<Connections />} />
             <Route path="/about" element={<About />} />
+            <Route path="/chat/:targetUserId" element={<Chat/>} />
           </>
         )}
 
-        {/* ⚠️ Optional: redirect any unknown path to home */}
+        {/*redirect any unknown path to home */}
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>
