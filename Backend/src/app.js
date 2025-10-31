@@ -9,11 +9,12 @@ const app = express();
 
 app.use(
   cors({
-      origin: [
-      "http://localhost:5173",                   // local frontend
-      "https://matematch-frontend.vercel.app",   // deployed frontend
+    origin: [
+      "http://localhost:5173", // local dev
+      "https://matematch-frontend.onrender.com", // ✅ your deployed frontend
     ],
-    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // ✅ allows cookies and headers
   })
 );
 
