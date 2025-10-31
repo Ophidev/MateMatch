@@ -12,16 +12,16 @@ const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((appStore) => appStore?.feed);
 
-  const getFeed = async () => {
-    try {
-      const res = await axios.get(BASE_URL + "/feed", {
-        withCredentials: true,
-      });
-      dispatch(addFeed(res?.data));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+    const getFeed = async () => {
+      try {
+        const res = await axios.get(BASE_URL + "/feed", {
+          withCredentials: true,
+        });
+        dispatch(addFeed(res?.data));
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
 
   useEffect(() => {
     getFeed();
