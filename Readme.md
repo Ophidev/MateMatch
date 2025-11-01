@@ -139,7 +139,7 @@ npm run dev
 
 ## 🧑‍💻 Author
 
-**👤 Aditya (Ophidev)**
+**👤 Ophidev**
 💼 MERN Developer | 🚀 DevOps Learner
 🔗 [GitHub](https://github.com/Ophidev)
 
