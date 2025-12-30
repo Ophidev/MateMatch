@@ -70,7 +70,7 @@ requestRouter.post(
   userAuth,
   async (req, res) => {
     try {
-      //Aditya sends request to => Ayush
+      //Ophid sends request to => Jenos
       //logedInUser = toUserId
       //status = interested
       //req Id should be valid

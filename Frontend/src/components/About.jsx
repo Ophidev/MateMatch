@@ -171,7 +171,7 @@ const About = () => {
 
       {/* Footer */}
       <footer className="py-10 text-center text-gray-600 text-sm bg-[#fff8f5] border-t border-[#f5e0d6]">
-        Made with ❤️ by <span className="text-[#b1350a] font-semibold">Aditya</span> — © {new Date().getFullYear()} MateMatch
+        Made with ❤️ by <span className="text-[#b1350a] font-semibold">Ophid</span> — © {new Date().getFullYear()} MateMatch
       </footer>
     </div>
   );

@@ -13,7 +13,7 @@ const Footer = () => {
           className="w-10 h-10 rounded-full border border-[#f5e0d6] shadow-sm"
         />
         <p className="text-sm md:text-base text-[#f5e0d6]">
-          Made with ❤️ by <span className="text-[#f5e0d6] font-semibold">Aditya</span> — © {new Date().getFullYear()} MateMatch
+          Made with ❤️ by <span className="text-[#f5e0d6] font-semibold">Ophid</span> — © {new Date().getFullYear()} MateMatch
         </p>
       </div>
 
