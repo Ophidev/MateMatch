@@ -1,4 +1,4 @@
-b# Day 1
+# Day 1
 
 - HLD & LLD Design
 - Folder Strcuture of Backend
