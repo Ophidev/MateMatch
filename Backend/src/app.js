@@ -32,7 +32,6 @@ const userRouter = require("./routes/userRouter");
 const chatRouter = require("./routes/Chat.js");
 
 
-
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
@@ -40,9 +39,9 @@ app.use("/", userRouter);
 app.use("/",chatRouter);
 
 const server = http.createServer(app);
-// ✅ Add this route at the very end
+// Add this route at the very end
 app.get("/", (req, res) => {
-  res.send("🚀 MateMatch Backend is Live and Connected to MongoDB!");
+  res.send(" MateMatch Backend is Live and Connected to MongoDB!");
 });
 
 initializeSocket(server);
