@@ -14,10 +14,10 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // local dev
-      "https://matematch-frontend.onrender.com", // ✅ your deployed frontend
+      "https://matematch-frontend.onrender.com", // your deployed frontend
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // ✅ allows cookies and headers
+    credentials: true, // allows cookies and headers
   })
 );
 
